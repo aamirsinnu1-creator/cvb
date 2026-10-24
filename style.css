@@ -1,0 +1,44 @@
+:root{--bg:#eef1f6;--ink:#14213d;--muted:#55607a;--line:#c9d1e0;--panel:#fff;--accent:#ffc857;--accent-ink:#3a2a00;--stage:#0d1526}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1526;--ink:#eef1f6;--muted:#a3adc4;--line:#2a3652;--panel:#16213a;--stage:#060b17}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+header{max-width:1100px;margin:0 auto;padding:28px 20px 8px}
+h1{margin:0;font-size:2rem;letter-spacing:-.01em}
+header p{margin:4px 0 0;color:var(--muted)}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 48px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+@media(max-width:820px){main{grid-template-columns:1fr}}
+.stage{position:relative;background:var(--stage);border-radius:14px;overflow:hidden;aspect-ratio:4/3}
+video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#placeholder{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;color:#c9d1e0;text-align:center;padding:20px}
+#live{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;display:flex;align-items:center;gap:14px}
+#liveLabel{font-size:2.4rem;font-weight:700;min-width:1ch}
+#meter{display:block;height:6px;width:0;background:var(--accent);border-radius:3px;transition:width .1s;flex:0 0 auto;max-width:40%}
+.out{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;align-self:start}
+h2{margin:0 0 10px;font-size:1.1rem}
+.text{min-height:120px;font-size:1.7rem;line-height:1.35;font-weight:700;padding:12px 14px;border-radius:10px;background:var(--bg);word-break:break-word}
+.text.empty{color:var(--muted);font-weight:400;font-size:1.05rem}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+button{font:inherit;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--ink)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+input[type=text],input:not([type]),select{font:inherit;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0;flex:1}
+.check{display:flex;align-items:center;gap:8px;margin:8px 0;color:var(--muted)}
+.check select{flex:1;max-width:260px}
+#status{min-height:1.5em;color:var(--muted);margin:8px 0 0}
+details{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+summary{cursor:pointer;font-weight:700}
+.hint{color:var(--muted);font-size:.95rem}
+.known{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.known li{background:var(--bg);border-radius:6px;padding:3px 9px;font-size:.92rem}
+.known button{padding:0 0 0 6px;border:0;background:none;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+[hidden]{display:none!important}
+.stage.on #live{display:flex}
+#live{display:none}
+#warn{background:#ffc857;color:#3a2a00;padding:12px 20px;text-align:center;font-weight:700}
+.pill{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;border-radius:99px;padding:3px 12px;font-size:.9rem}
+.pill.ok{background:#1f7a4d}
+#stopBtn{position:absolute;top:10px;right:10px;font-size:.9rem;padding:5px 10px}
+input[type=range]{flex:1;accent-color:var(--ink)}
+.known button{cursor:pointer}

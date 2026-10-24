@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignBridge – Sign language to text and speech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<noscript><div id="warn">Please enable JavaScript.</div></noscript>
+<script>if(location.protocol==="file:")document.write('<div id="warn">Open this site through a server (python -m http.server 8000 then http://localhost:8000) or GitHub Pages. The camera does not work from a double-clicked file.</div>')</script>
+<header>
+  <h1>SignBridge</h1>
+  <p>Show a sign with one or both hands. See it as text, hear it as speech.</p>
+</header>
+
+<main>
+  <section class="stage" id="stage" aria-label="Camera">
+    <video id="video" playsinline muted></video>
+    <canvas id="overlay"></canvas>
+    <div id="placeholder">
+      <button id="startBtn" class="primary">Start camera</button>
+      <small>Your video stays in your browser. Nothing is uploaded.</small>
+    </div>
+    <span id="hands" class="pill" hidden>Hands: 0</span>
+    <button id="stopBtn" hidden>Stop camera</button>
+    <div id="live" aria-live="polite"><span id="liveLabel">–</span><i id="meter"></i></div>
+  </section>
+
+  <section class="out" aria-label="Output">
+    <h2>Sentence</h2>
+    <div id="text" class="text empty" aria-live="polite">Signs will appear here.</div>
+    <div class="row">
+      <button id="speakBtn" class="primary">Speak</button>
+      <button id="backBtn">Delete last</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+    <label class="check"><input type="checkbox" id="autoSpeak" checked> Speak each sign as it is added</label>
+    <label class="check"><input type="checkbox" id="builtinOn" checked> Use built-in signs</label>
+    <label class="check">Voice language
+      <select id="lang"><option value="en-IN">English (India)</option><option value="hi-IN">Hindi</option><option value="ml-IN">Malayalam</option><option value="en-US">English (US)</option></select>
+    </label>
+    <p id="status" role="status"></p>
+
+    <details>
+      <summary>Built-in signs</summary>
+      <ul class="known">
+        <li>1 to 4 fingers: One to Four</li><li>Open hand: Hello</li><li>Fist: Yes</li><li>Thumb up: Good</li><li>Thumb down: No</li>
+        <li>Thumb + little finger: Call me</li><li>Thumb + index + little: I love you</li>
+        <li>Both palms together: Namaste</li><li>Both open hands apart: Welcome</li><li>Both thumbs up: Very good</li><li>Both fists: Stop</li>
+      </ul>
+    </details>
+
+    <details open>
+      <summary>Teach it a sign (one or two hands)</summary>
+      <p class="hint">Type the word, press Record, then hold the sign. It counts down 3 seconds, then records for 3 seconds. Record 2 to 3 times, tilting your hand a little each time.</p>
+      <div class="row"><input type="text" id="teachLabel" placeholder="Word, e.g. Water" maxlength="30"><button id="recBtn" class="primary">Record</button></div>
+      <p id="recStatus" role="status" class="hint"></p>
+      <ul id="mine" class="known"></ul>
+      <div class="row">
+        <button id="exportBtn">Export</button><button id="importBtn">Import</button><button id="resetBtn">Delete all</button>
+        <input type="file" id="importFile" accept="application/json" hidden>
+      </div>
+      <label class="check">Matching strictness
+        <input type="range" id="threshold" min="0.5" max="4" step="0.1" value="1.8">
+      </label>
+      <p class="hint">Lower is stricter. Raise it if your signs are missed, lower it if it guesses wrong.</p>
+    </details>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
